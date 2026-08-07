@@ -1,0 +1,65 @@
+[
+  {
+    "id": "KB-201",
+    "category": "Network",
+    "title": "Wi-Fi disconnects intermittently on campus",
+    "keywords": ["wifi", "wireless", "disconnect", "drops", "campus", "roaming", "access point"],
+    "body": "Confirm the client is joined to the corporate SSID rather than the guest network, since guest sessions expire on a timer. Check the wireless adapter driver in Device Manager and update it if it predates the current baseline image. In the adapter's advanced properties, reduce aggressive roaming and set power management so the radio stays on. Forget and rejoin the network so a fresh certificate is issued, then verify the machine certificate has not expired. If drops cluster in one building or floor, record the access point name, signal strength, and timestamps, then escalate to the network team with the device MAC address for controller-side log review."
+  },
+  {
+    "id": "KB-207",
+    "category": "Network",
+    "title": "VPN session drops repeatedly during use",
+    "keywords": ["vpn", "tunnel", "disconnect", "remote access", "session timeout", "reconnect"],
+    "body": "Verify the VPN client version matches the current supported release and upgrade it if it is behind. Ask whether drops occur only on Wi-Fi; if so, retest on a wired connection to isolate the underlying link. Check the concentrator for a duplicate or stale session for that user and clear it before reconnecting. Confirm the endpoint is not sleeping mid-session by adjusting the power plan so the network adapter stays awake. Review the local firewall and any third-party security suite for interference with the virtual adapter. Collect client logs, note the repeating disconnect reason code, and escalate to the network team with the username and session times."
+  },
+  {
+    "id": "KB-114",
+    "category": "Access",
+    "title": "Mapped shared drive fails to connect",
+    "keywords": ["mapped drive", "network drive", "shared drive", "unc path", "drive letter", "file server"],
+    "body": "Confirm the user is on the corporate network or connected through VPN, since mapped drives will not reconnect off-network. Ping the file server by name and by IP address to separate name resolution problems from basic connectivity. Open the UNC path directly in File Explorer to test whether the share responds without a drive letter. Delete the existing mapping, clear cached credentials in Credential Manager, then remap using the fully qualified server name. Verify the drive letter is not already claimed by a local disk or removable media. If the UNC path opens but the mapping still fails, confirm the logon script ran and review the applied Group Policy results."
+  },
+  {
+    "id": "KB-118",
+    "category": "Access",
+    "title": "Permission denied when opening a shared folder",
+    "keywords": ["permission denied", "access denied", "shared folder", "ntfs", "share permissions", "file access"],
+    "body": "Confirm the exact folder path and capture the precise error text, then reproduce the failure with the user's account where possible. Check effective access on the folder's Security tab to see what the account actually resolves to. Compare share permissions against NTFS permissions, since the more restrictive of the two always wins. Verify the user belongs to the correct security group and has signed out and back in so their token includes it. Rule out broken inheritance on the specific subfolder rather than the parent. If the user genuinely lacks entitlement, route the request to the data owner for approval instead of granting access directly from the service desk."
+  },
+  {
+    "id": "KB-121",
+    "category": "Access",
+    "title": "Missing security group membership blocks resource access",
+    "keywords": ["security group", "group membership", "active directory", "not in group", "entitlement", "token"],
+    "body": "Run a group membership query against the directory for the account and compare the result with the role baseline for that department. Confirm whether the group was never assigned or was removed during a recent access review. Have the user fully sign out and back in, since a ticket issued before the change will not carry the new group. Check that directory replication has completed across sites when the change was made within the last hour. For nested groups, confirm the parent group is still a member of the resource group. Record the approving manager in the ticket, then have the user retest the affected resource before closing."
+  },
+  {
+    "id": "KB-303",
+    "category": "Hardware",
+    "title": "Printer shows offline and jobs will not print",
+    "keywords": ["printer", "offline", "print queue", "spooler", "not printing", "stuck jobs"],
+    "body": "Confirm the device has power, shows no error lights, and is not held by a paper or toner condition. Print the network configuration page and verify the reported IP address matches the port configured on the print server. Ping that address; if it fails, check the network drop and switch port. On the workstation, clear the queue and uncheck the use printer offline option in printer settings. Restart the print spooler service locally, and restart the server queue if several users report the same device. If the queue is centrally managed, remove and readd the printer using the server share path rather than a direct IP."
+  },
+  {
+    "id": "KB-309",
+    "category": "Hardware",
+    "title": "External monitor not detected on docking station",
+    "keywords": ["monitor", "dock", "docking station", "no display", "second screen", "hdmi", "displayport"],
+    "body": "Reseat the dock's upstream cable and the display cable at both ends, then power cycle the dock by unplugging it for thirty seconds. Test the monitor with a known good cable and directly on the laptop's video port to isolate the failing component. Use the display switch key or projection menu to force detection. Update the dock firmware and graphics driver, and confirm the docking software matches the current baseline. Check whether the requested resolution or refresh rate exceeds what the dock supports when two displays are attached. If only one of two monitors works, verify the supported display limit for that specific dock model."
+  },
+  {
+    "id": "KB-405",
+    "category": "Software",
+    "title": "Outlook will not sync new mail",
+    "keywords": ["outlook", "email", "not syncing", "disconnected", "working offline", "mailbox", "ost"],
+    "body": "Check the connection status in the status bar and confirm the account reads as connected rather than disconnected or working offline. Turn off work offline, then test webmail in a browser to determine whether the fault is client side or server side. Verify the mailbox is not over quota, since a full mailbox stops synchronization entirely. Repair the account from the account settings dialog and restart the client. If the profile is damaged, create a new mail profile and allow the cached data file to rebuild. For cached mode accounts, check data file size and free disk space, and confirm credentials are current after any recent password change."
+  },
+  {
+    "id": "KB-412",
+    "category": "Software",
+    "title": "Application crashes immediately on launch",
+    "keywords": ["crash", "application", "will not open", "closes immediately", "event viewer", "reinstall", "profile"],
+    "body": "Reproduce the crash and record the exact error text, then open Event Viewer and note the faulting module in the application error entry. Confirm the workstation meets the current version's requirements and that the installed build is still supported. Launch the application under a different user account on the same machine to determine whether the fault is profile specific. If it is, rename the local application data folder so a clean configuration is generated. Otherwise run a repair install, then apply pending operating system and framework updates. Check that antivirus or application control is not blocking the executable, then uninstall, reboot, and reinstall from the software catalog."
+  }
+]
